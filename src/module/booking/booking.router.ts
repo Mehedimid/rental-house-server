@@ -1,0 +1,25 @@
+import { Router } from 'express';
+import { bookingController } from './booking.controller';
+
+const bookingRouter = Router();
+
+bookingRouter.post('/create-booking', bookingController.createBooking);
+
+bookingRouter.get('/:id', bookingController.getSingleBooking);
+
+bookingRouter.patch('/cancel/:id', bookingController.cancelBooking);
+
+bookingRouter.patch('/accept/:id', bookingController.acceptBooking);
+
+bookingRouter.patch('/reject/:id', bookingController.rejectBooking);
+
+bookingRouter.get(
+  '/landlord-bookings/:landlordId',
+  bookingController.getLandlordBooking,
+);
+
+bookingRouter.get('/', bookingController.getBooking);
+
+bookingRouter.delete('/delete', bookingController.deleteBooking);
+
+export default bookingRouter;
