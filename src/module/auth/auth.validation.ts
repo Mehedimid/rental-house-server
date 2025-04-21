@@ -11,9 +11,10 @@ const RegisterValidationSchema = z.object({
   email: z
     .string({ required_error: 'Email is required.' })
     .email('Invalid email format'),
+  phone: z.string({ required_error: 'Phone Number is required'}),
   password: z.string({ required_error: 'Password is required.' }),
   imageUrl: z.string({ required_error: 'Image URL is required.' }).url('Invalid image URL'),
-  role: z.enum(['admin', 'user']).default('user'),
+  role: z.enum(['admin', 'tenant', 'landlord']).default('tenant'),
   isBlocked: z.boolean().default(false),
 });
 

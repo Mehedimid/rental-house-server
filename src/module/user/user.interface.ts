@@ -1,7 +1,7 @@
 export interface TCreateUser {
   name: string;
   email: string;
-  number: string;
+  phone: string;
   password: string;
   role: 'admin' | 'tenant' | 'landlord';
   isBlocked: boolean;

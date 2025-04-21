@@ -50,7 +50,7 @@ const loginService = async (payload: TLoginUser) => {
     userInfo: {
       name: user.name,
       email: user.email,
-      number: user.number,
+      phone: user.phone,
       role: user.role,
       imageUrl: user.imageUrl,
     },
