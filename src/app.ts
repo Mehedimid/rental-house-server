@@ -17,6 +17,7 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Hello from setup file of basa finder ');
 });
 
+
 app.use(globalErrorHandler)
 app.use("*", routeNotFoundHandler)
 
