@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { IListing } from './listing.interface';
 import listingMiddleware from './listing.middlewares';
+import { number } from 'zod';
 
 export const ListingImagesSchema = new Schema(
   {
@@ -30,7 +31,7 @@ export const ListingSchema = new Schema<IListing>(
     flatPlan: String,
     title: { type: String, required: true },
     address: { type: String, required: true },
-    price: { type: String, required: true },
+    price: { type: Number, required: true },
     sqft: { type: Number, required: true },
     beds: { type: Number, required: true },
     baths: { type: Number, required: true },
