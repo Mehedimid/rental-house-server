@@ -24,7 +24,7 @@ export interface IListing {
   flatPlan?: string;
   title: string;
   address: string;
-  price: string;
+  price: Number;
   sqft: number;
   beds: number;
   baths: number;
