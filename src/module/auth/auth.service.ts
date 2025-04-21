@@ -1,6 +1,6 @@
 import config from '../../config';
-import { TCreateUser } from '../user/user.interface';
-import { createUserModel } from '../user/user.model';
+import { TCreateUser } from '../User/user.interface';
+import { createUserModel } from '../User/user.model';
 import { TJwtPayload, TLoginUser } from './auth.interface';
 import { generateToken } from './auth.utils';
 
@@ -50,6 +50,7 @@ const loginService = async (payload: TLoginUser) => {
     userInfo: {
       name: user.name,
       email: user.email,
+      number: user.number,
       role: user.role,
       imageUrl: user.imageUrl,
     },

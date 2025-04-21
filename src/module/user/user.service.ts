@@ -125,14 +125,14 @@ const updateUserPasswordInDB = async (payload: any) => {
   }
 };
 
-const changeUserRoleInDB = async (id: string, newRole: 'admin' | 'user') => {
+const changeUserRoleInDB = async (id: string, newRole: 'admin' | 'tenant' | 'landlord') => {
   const user = await createUserModel.findById(id);
 
   if (!user) {
     throw new AppError(StatusCodes.NOT_FOUND, 'User not found');
   }
 
-  if (!['admin', 'user'].includes(newRole)) {
+  if (!['admin', 'tenant', 'landlord'].includes(newRole)) {
     throw new AppError(StatusCodes.BAD_REQUEST, 'Invalid role provided');
   }
 

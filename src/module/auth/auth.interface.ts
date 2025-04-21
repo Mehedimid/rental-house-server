@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Model } from "mongoose";
-import { TCreateUser } from "../user/user.interface";
+import { TCreateUser } from "../User/user.interface";
 
 export interface TLogin extends Model<TCreateUser> {
     isPasswordMatched(
@@ -16,5 +16,5 @@ export interface TLogin extends Model<TCreateUser> {
   };
   export interface TJwtPayload {
     email:string;
-    role:"admin" | "user";
+    role:"admin" | "tenant" | "landlord";
   }

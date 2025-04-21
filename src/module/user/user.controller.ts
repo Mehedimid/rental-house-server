@@ -36,7 +36,7 @@ const updateUserStatus = catchAsync(async (req: Request, res: Response) => {
 });
 
 const changeUserRole = catchAsync(async (req: Request, res: Response) => {
-  const { id, role }: { id: string, role: 'admin' | 'user' } = req.body; 
+  const { id, role }: { id: string, role: 'admin' | 'tenant' | 'landlord' } = req.body; 
 
   const result = await UserServices.changeUserRoleInDB(id, role);
 
