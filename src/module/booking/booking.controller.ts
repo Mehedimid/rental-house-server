@@ -24,8 +24,17 @@ const getBooking = catchAsync(async (req, res) => {
 });
 
 const getLandlordBooking = catchAsync(async (req, res) => {
-  console.log(req.params.landlordId);
   const result = await bookingServices.getLandlordBooking(req.params.landlordId);
+
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    message: "Successfully fetched bookings",
+    data: result,
+  });
+});
+
+const getTenantBooking = catchAsync(async (req, res) => {
+  const result = await bookingServices.getTenantBooking(req.params.tenantId);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
@@ -55,7 +64,6 @@ const cancelBooking = catchAsync(async (req, res) => {
     data: result,
   });
 });
-
 
 const acceptBooking = catchAsync(async (req, res) => {
   const id = req.params.id;
@@ -98,5 +106,6 @@ export const bookingController = {
   acceptBooking,
   rejectBooking,
   cancelBooking,
-  deleteBooking
+  deleteBooking,
+  getTenantBooking
 };

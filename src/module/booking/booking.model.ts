@@ -1,35 +1,55 @@
 import { model, Schema } from "mongoose";
-import { IBooking } from "./booking.interface";
+import { IBooking, IDetails } from "./booking.interface";
+
+const detailsSchema = new Schema<IDetails>({
+  familyMembers: {
+    type: Number,
+    required: true
+  },
+  children: {
+    type: Number,
+    required: true
+  },
+  message: {
+    type: String,
+    required: false
+  }
+}, {
+  _id: false
+});
 
 export const bookingSchema = new Schema<IBooking>({
-  tenant:{
+  tenant: {
     type: Schema.Types.ObjectId,
     required: true,
-    ref:'User'
+    ref: 'User'
   },
-  landlord:{
+  landlord: {
     type: Schema.Types.ObjectId,
     required: true,
-    ref:'User'
+    ref: 'User'
   },
-  listing:{
+  listing: {
     type: Schema.Types.ObjectId,
     required: true,
-    ref:'Listing'
+    ref: 'Listing'
+  },
+  details: {
+    type: detailsSchema,
+    required: true 
   },
   bookingStatus: {
     type: String,
-    enum:["accepted" , "rejected" , "cancelled", "pending"],
-    default:"pending"
+    enum: ["accepted", "rejected", "cancelled", "pending"],
+    default: "pending"
   },
-  paymentStatus:{
+  paymentStatus: {
     type: Boolean,
     required: true,
   }
-},{
-  timestamps:true
+}, {
+  timestamps: true
 });
-
 
 const Booking = model<IBooking>('Booking', bookingSchema);
 
