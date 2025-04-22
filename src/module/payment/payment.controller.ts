@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import SSLCommerzPayment from 'sslcommerz-lts';
 import { backendBaseUrl } from '../../utils/baseUrl';
 import { Listing } from '../listing/listing.model';
-import { User } from '../testingUser/testUser.model';
+import {  User } from '../User/user.model';
 
 const is_live = false;
 

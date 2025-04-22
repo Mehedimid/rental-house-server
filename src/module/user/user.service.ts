@@ -2,18 +2,18 @@
 import bcrypt from 'bcrypt';
 import { StatusCodes } from 'http-status-codes';
 import AppError from '../../ErrorHandlers/AppError';
-import { createUserModel } from './user.model';
+import { User } from './user.model';
 import { TUpdateUserStatus } from './user.interface';
 import mongoose from 'mongoose';
 import config from '../../config';
 
 const getAllUserFromDB = async () => {
-  const users = await createUserModel.find();
+  const users = await User.find();
   return users;
 };
 
 const getSingleUserFromDB = async (email: string) => {
-  const result = await createUserModel.findOne({ email });
+  const result = await User.findOne({ email });
   if (!result) {
     throw new AppError(StatusCodes.NOT_FOUND, 'User not found');
   }
@@ -21,7 +21,7 @@ const getSingleUserFromDB = async (email: string) => {
 };
 
 const updateUserStatusInDB = async (payload: TUpdateUserStatus) => {
-  const users = await createUserModel.findById(payload?.id);
+  const users = await User.findById(payload?.id);
   if (!users) {
     throw new AppError(StatusCodes.NOT_FOUND, 'User Not Found');
   }
@@ -32,19 +32,19 @@ const updateUserStatusInDB = async (payload: TUpdateUserStatus) => {
     throw new AppError(StatusCodes.BAD_REQUEST, 'Invalid Action');
   }
   if (payload?.action === 'block') {
-    const res = await createUserModel.findByIdAndUpdate(payload?.id, {
+    const res = await User.findByIdAndUpdate(payload?.id, {
       isBlocked: true,
     });
     return res;
   }
   if (payload?.action === 'active') {
-    const res = await createUserModel.findByIdAndUpdate(payload?.id, {
+    const res = await User.findByIdAndUpdate(payload?.id, {
       isActive: true,
     });
     return res;
   }
   if (payload?.action === 'deactive') {
-    const res = await createUserModel.findByIdAndUpdate(payload?.id, {
+    const res = await User.findByIdAndUpdate(payload?.id, {
       isActive: false,
     });
     return res;
@@ -60,7 +60,7 @@ const updateUserProfileInDB = async (payload: any) => {
   }
 
   try {
-    const data = await createUserModel.updateOne(
+    const data = await User.updateOne(
       { email: payload?.email },
       { $set: { name: payload?.name } },
     );
@@ -81,7 +81,7 @@ const updateUserPasswordInDB = async (payload: any) => {
   session.startTransaction();
 
   try {
-    const user = await createUserModel
+    const user = await User
       .findOne({ email: payload?.email })
       .session(session);
     if (!user) {
@@ -110,7 +110,7 @@ const updateUserPasswordInDB = async (payload: any) => {
       );
     }
 
-    const res = await createUserModel
+    const res = await User
       .updateOne({ email: payload?.email }, { password: newpass })
       .session(session);
 
@@ -126,7 +126,7 @@ const updateUserPasswordInDB = async (payload: any) => {
 };
 
 const changeUserRoleInDB = async (id: string, newRole: 'admin' | 'tenant' | 'landlord') => {
-  const user = await createUserModel.findById(id);
+  const user = await User.findById(id);
 
   if (!user) {
     throw new AppError(StatusCodes.NOT_FOUND, 'User not found');

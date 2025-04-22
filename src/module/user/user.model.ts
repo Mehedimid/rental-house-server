@@ -43,4 +43,4 @@ createUserSchema.statics.isUserExistsByCustomId = async function (
 console.log('User model loaded!');
 
 // ✅ THIS LINE is critical: use the already compiled model if it exists
-export const createUserModel = (mongoose.models.User as UserModelType) || model<TCreateUser, UserModelType>('User', createUserSchema);
+export const User = (mongoose.models.User as UserModelType) || model<TCreateUser, UserModelType>('User', createUserSchema);

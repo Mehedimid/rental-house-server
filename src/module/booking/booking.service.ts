@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import { IBooking } from './booking.interface';
 import Booking from './booking.model';
-import { User } from '../testingUser/testUser.model';
 
 const createBooking = async (payload: IBooking): Promise<IBooking> => {
   const result = await Booking.create(payload);
@@ -40,7 +39,7 @@ const cancelBooking = async (bookingId: string): Promise<IBooking> => {
 };
 
 const getBooking = async () => {
-  const userModel = User;
+
   const result = await Booking.find()
     .populate('tenant', 'name email phone')
     .populate('landlord', 'name email phone')
@@ -49,9 +48,9 @@ const getBooking = async () => {
 };
 
 const getLandlordBooking = async (landlordId:string) => {
-  const userModel = User;
+
   const result = await Booking.find({landlord:landlordId})
-    .populate('user', 'name email phone')
+    .populate('tenant', 'name email phone')
     .populate('landlord', 'name email phone')
     .populate('listing', 'title address');
   return result;

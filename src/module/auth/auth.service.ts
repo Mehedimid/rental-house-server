@@ -1,16 +1,16 @@
 import config from '../../config';
 import { TCreateUser } from '../User/user.interface';
-import { createUserModel } from '../User/user.model';
+import {  User } from '../User/user.model';
 import { TJwtPayload, TLoginUser } from './auth.interface';
 import { generateToken } from './auth.utils';
 
 const createUserIntoDB = async (userData: TCreateUser) => {
-  const res = await createUserModel.create(userData);
+  const res = await User.create(userData);
   return res;
 };
 
 const loginService = async (payload: TLoginUser) => {
-  const user = await createUserModel
+  const user = await User
     .findOne({ email: payload?.email })
     .select('+password');
 
@@ -18,7 +18,7 @@ const loginService = async (payload: TLoginUser) => {
     throw new Error('User not found');
   }
 
-  const isPasswordValid = await createUserModel.isPasswordMatched(
+  const isPasswordValid = await User.isPasswordMatched(
     payload.password,
     user.password
   );
