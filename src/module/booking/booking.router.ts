@@ -18,6 +18,11 @@ bookingRouter.get(
   bookingController.getLandlordBooking,
 );
 
+bookingRouter.get(
+  '/tenant-bookings/:tenantId',
+  bookingController.getTenantBooking,
+);
+
 bookingRouter.get('/', bookingController.getBooking);
 
 bookingRouter.delete('/delete', bookingController.deleteBooking);
