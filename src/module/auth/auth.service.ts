@@ -1,6 +1,6 @@
 import config from '../../config';
-import { TCreateUser } from '../User/user.interface';
-import {  User } from '../User/user.model';
+import { TCreateUser } from '../user/user.interface';
+import {  User } from '../user/user.model';
 import { TJwtPayload, TLoginUser } from './auth.interface';
 import { generateToken } from './auth.utils';
 
