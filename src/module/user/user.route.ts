@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { UserController } from "./user.controller";
 import verifyAdmin from "../../middlewares/verifyAdmin";
 import verifyUserOrAdmin from "../../middlewares/verifyUserOrAdmin";
 import verifyUser from "../../middlewares/verifyUser";
+import { UserController } from "../user/user.controller";
+
 
 
 const UserRouter = Router();

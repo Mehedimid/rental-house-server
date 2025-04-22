@@ -2,8 +2,8 @@
 import bcrypt from 'bcrypt';
 import { StatusCodes } from 'http-status-codes';
 import AppError from '../../ErrorHandlers/AppError';
-import { createUserModel } from './user.model';
-import { TUpdateUserStatus } from './user.interface';
+import { createUserModel } from '../user/user.model';
+import { TUpdateUserStatus } from '../user/user.interface';
 import mongoose from 'mongoose';
 import config from '../../config';
 

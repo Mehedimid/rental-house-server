@@ -1,8 +1,9 @@
 import config from '../../config';
-import { TCreateUser } from '../User/user.interface';
-import { createUserModel } from '../User/user.model';
-import { TJwtPayload, TLoginUser } from './auth.interface';
-import { generateToken } from './auth.utils';
+import { TCreateUser } from '../user/user.interface';
+import { createUserModel } from '../user/user.model';
+import { TJwtPayload, TLoginUser } from '../auth/auth.interface';
+import { generateToken } from '../auth/auth.utils';
+
 
 const createUserIntoDB = async (userData: TCreateUser) => {
   const res = await createUserModel.create(userData);

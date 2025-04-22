@@ -1,5 +1,4 @@
 import { z } from 'zod';
-
 export const detailsValidationSchema = z.object({
   familyMembers: z.number().int().min(1, { message: 'Family members are required' }),
   children: z.number().int().min(0, { message: 'Children count is required' }),

@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import { IBooking } from './booking.interface';
 import Booking from './booking.model';
-import { createUserModel } from '../User/user.model';
 
 const createBooking = async (payload: IBooking): Promise<IBooking> => {
   const result = await Booking.create(payload);

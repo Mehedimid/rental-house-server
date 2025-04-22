@@ -1,11 +1,13 @@
 import { Request, Response } from 'express';
 import catchAsync from '../../utils/catchAsync';
-import { UserServices } from './user.service';
 import sendResponse from '../../utils/sendResponse';
 import { StatusCodes } from 'http-status-codes';
+import { UserServices } from './user.service';
+
 
 const getAllUsers = catchAsync(async (req: Request, res: Response) => {
-  const result = await UserServices.getAllUserFromDB();
+  const result = await UserServices
+  .getAllUserFromDB();
   sendResponse(res, {
     success: true,
     message: 'All Users Retrieved successfully',
