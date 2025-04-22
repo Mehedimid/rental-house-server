@@ -56,6 +56,14 @@ const getLandlordBooking = async (landlordId:string) => {
   return result;
 };
 
+const getTenantBooking = async (tenantId:string) => {
+  const result = await Booking.find({tenant:tenantId})
+    .populate('tenant', 'name email phone')
+    .populate('landlord', 'name email phone')
+    .populate('listing', 'title address');
+  return result;
+};
+
 const getSingleBooking = async (paramId: string) => {
   const result = await Booking.findById(paramId);
   return result;
@@ -97,5 +105,5 @@ export const bookingServices = {
   acceptBooking,
   rejectBooking,
   deleteBooking,
-
+  getTenantBooking
 };

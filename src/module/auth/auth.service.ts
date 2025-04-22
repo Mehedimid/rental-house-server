@@ -28,6 +28,7 @@ const loginService = async (payload: TLoginUser) => {
   }
 
   const jwtPayload: TJwtPayload = {
+    id: user._id.toString(),
     email: user.email,
     role: user.role,
   };
@@ -44,10 +45,12 @@ const loginService = async (payload: TLoginUser) => {
     config.jwt_refresh_expires_in as string
   );
 
+
   return {
     accessToken,
     refreshToken,
     userInfo: {
+      id: user._id.toString(),
       name: user.name,
       email: user.email,
       phone: user.phone,

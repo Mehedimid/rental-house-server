@@ -15,6 +15,7 @@ export interface TLogin extends Model<TCreateUser> {
     password: string;
   };
   export interface TJwtPayload {
+    id: string;
     email:string;
     role:"admin" | "tenant" | "landlord";
   }
