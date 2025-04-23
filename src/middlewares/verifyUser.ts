@@ -20,6 +20,7 @@ const verifyUser = catchAsync(
     ) as JwtPayload;
 
     const { role, email } = decoded;
+  
     const user = await User.isUserExistsByCustomId(email);
 
     if (!user) {

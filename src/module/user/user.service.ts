@@ -80,9 +80,12 @@ const updateUserPasswordInDB = async (payload: any) => {
   const session = await mongoose.startSession();
   session.startTransaction();
 
+  
+
   try {
     const user = await User
       .findOne({ email: payload?.email })
+      .select("+password")
       .session(session);
     if (!user) {
       throw new AppError(StatusCodes.NOT_FOUND, 'User Not found');
