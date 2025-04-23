@@ -1,18 +1,17 @@
 import config from '../../config';
 import { TCreateUser } from '../user/user.interface';
-import { TJwtPayload, TLoginUser } from '../auth/auth.interface';
-import { generateToken } from '../auth/auth.utils';
-import { createUserModel } from '../user/user.model';
-
-
+import {  User } from '../user/user.model';
+import { TJwtPayload, TLoginUser } from './auth.interface';
+import { generateToken } from './auth.utils';
 
 const createUserIntoDB = async (userData: TCreateUser) => {
-  const res = await createUserModel.create(userData);
+  userData.isActive = true;
+  const res = await User.create(userData);
   return res;
 };
 
 const loginService = async (payload: TLoginUser) => {
-  const user = await createUserModel
+  const user = await User
     .findOne({ email: payload?.email })
     .select('+password');
 
@@ -20,7 +19,7 @@ const loginService = async (payload: TLoginUser) => {
     throw new Error('User not found');
   }
 
-  const isPasswordValid = await createUserModel.isPasswordMatched(
+  const isPasswordValid = await User.isPasswordMatched(
     payload.password,
     user.password
   );
@@ -30,6 +29,7 @@ const loginService = async (payload: TLoginUser) => {
   }
 
   const jwtPayload: TJwtPayload = {
+    id: user._id.toString(),
     email: user.email,
     role: user.role,
   };
@@ -46,10 +46,12 @@ const loginService = async (payload: TLoginUser) => {
     config.jwt_refresh_expires_in as string
   );
 
+
   return {
     accessToken,
     refreshToken,
     userInfo: {
+      id: user._id.toString(),
       name: user.name,
       email: user.email,
       phone: user.phone,

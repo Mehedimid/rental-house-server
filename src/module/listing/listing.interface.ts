@@ -3,6 +3,8 @@ import mongoose from 'mongoose';
 export type ListingType = 'apartment' | 'house' | 'villa' | 'townhouse';
 export type statusType = 'available' | 'not available';
 
+
+
 export interface IListingImages {
   img1: string;
   img2: string;

@@ -56,7 +56,9 @@ const updateUserProfile = catchAsync(async (req: Request, res: Response) => {
   const result = await UserServices.updateUserProfileInDB({
     name: getUserData?.name,
     email: getUserData?.email,
+    
   });
+
   sendResponse(res, {
     success: true,
     message: 'Updated User Profile Successfully',

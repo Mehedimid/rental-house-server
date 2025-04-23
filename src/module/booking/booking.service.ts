@@ -39,6 +39,7 @@ const cancelBooking = async (bookingId: string): Promise<IBooking> => {
 };
 
 const getBooking = async () => {
+
   const result = await Booking.find()
     .populate('tenant', 'name email phone')
     .populate('landlord', 'name email phone')
@@ -47,6 +48,7 @@ const getBooking = async () => {
 };
 
 const getLandlordBooking = async (landlordId:string) => {
+
   const result = await Booking.find({landlord:landlordId})
     .populate('tenant', 'name email phone')
     .populate('landlord', 'name email phone')

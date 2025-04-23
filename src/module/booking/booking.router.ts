@@ -9,9 +9,9 @@ bookingRouter.get('/:id', bookingController.getSingleBooking);
 
 bookingRouter.patch('/cancel/:id', bookingController.cancelBooking);
 
-bookingRouter.patch('/accept/:id', bookingController.acceptBooking);
+bookingRouter.patch('/accepted/:id', bookingController.acceptBooking);
 
-bookingRouter.patch('/reject/:id', bookingController.rejectBooking);
+bookingRouter.patch('/rejected/:id', bookingController.rejectBooking);
 
 bookingRouter.get(
   '/landlord-bookings/:landlordId',
