@@ -10,6 +10,7 @@ export interface TCreateUser {
 }
 
 export interface TUpdateUserStatus {
+  isActive: boolean;
   id: string;
   action: string;
 }

@@ -1,4 +1,4 @@
-// src/module/User/user.model.ts
+
 import mongoose, { Schema, model, Model } from 'mongoose';
 import bcrypt from 'bcrypt';
 import config from '../../config';
@@ -40,7 +40,7 @@ createUserSchema.statics.isUserExistsByCustomId = async function (
   return this.findOne({ email });
 };
 
-console.log('User model loaded!');
 
-// ✅ THIS LINE is critical: use the already compiled model if it exists
-export const createUserModel = (mongoose.models.User as UserModelType) || model<TCreateUser, UserModelType>('User', createUserSchema);
+
+
+export const User = (mongoose.models.User as UserModelType) || model<TCreateUser, UserModelType>('User', createUserSchema);

@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import SSLCommerzPayment from 'sslcommerz-lts';
 import { backendBaseUrl } from '../../utils/baseUrl';
 import { Listing } from '../listing/listing.model';
-import { createUserModel } from '../User/user.model';
+import {  User } from '../user/user.model';
 
 const is_live = false;
 
@@ -17,7 +17,7 @@ export const initiatePayment = async (req: Request, res: Response) => {
   const bookingData = req.body;
   const bookingHouse = await Listing.findById(bookingData.listing);
 
-  const tenant = await createUserModel.findById(bookingData.tenant)
+  const tenant = await User.findById(bookingData.tenant)
 
   const name = tenant?.name || "name"
   const email = tenant?.email || "email"
