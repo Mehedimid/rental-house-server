@@ -3,7 +3,7 @@ import globalErrorHandler from './middlewares/globalErrorHandler';
 import { routeNotFoundHandler } from './middlewares/routeNotFound';
 import bodyParser from 'body-parser';
 import AuthRouter from './module/Auth/auth.route';
-import UserRouter from './module/User/user.route';
+import UserRouter from './module/user/user.route';
 import cookieParser from 'cookie-parser';
 import cors from 'cors'; 
 import listingRouter from './module/listing/listing.router';
