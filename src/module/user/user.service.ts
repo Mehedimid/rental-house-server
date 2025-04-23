@@ -138,7 +138,11 @@ const changeUserRoleInDB = async (id: string, newRole: 'admin' | 'tenant' | 'lan
   }
 
   user.role = newRole;
-  const updatedUser = await user.save();
+  const updatedUser = await User.findByIdAndUpdate(
+    id,
+    { role: newRole },
+    { new: true, runValidators: true }
+  );
   return updatedUser;
 };
 
