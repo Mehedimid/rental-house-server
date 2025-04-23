@@ -5,6 +5,7 @@ import { TJwtPayload, TLoginUser } from './auth.interface';
 import { generateToken } from './auth.utils';
 
 const createUserIntoDB = async (userData: TCreateUser) => {
+  userData.isActive = true;
   const res = await User.create(userData);
   return res;
 };

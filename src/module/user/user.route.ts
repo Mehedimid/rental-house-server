@@ -13,5 +13,6 @@ UserRouter.patch('/update', verifyAdmin, UserController.updateUserStatus);
 UserRouter.patch('/update/user', verifyUser,  UserController.updateUserProfile);
 UserRouter.patch('/update/password', verifyUser,  UserController.updateUserPassword);
 UserRouter.patch("/admin/change-user-role",verifyAdmin,UserController.changeUserRole);
+UserRouter.patch("/admin/change-user-status",verifyAdmin,UserController.updateUserStatus);
 
 export default UserRouter

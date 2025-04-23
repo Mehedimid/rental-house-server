@@ -21,35 +21,29 @@ const getSingleUserFromDB = async (email: string) => {
 };
 
 const updateUserStatusInDB = async (payload: TUpdateUserStatus) => {
-  const users = await User.findById(payload?.id);
-  if (!users) {
+  const user = await User.findById(payload?.id);
+
+  if (!user) {
     throw new AppError(StatusCodes.NOT_FOUND, 'User Not Found');
   }
-  if (users?.role === 'admin') {
-    throw new AppError(StatusCodes.FORBIDDEN, `Cannot change admin status`);
+
+  if (user.role === 'admin') {
+    throw new AppError(StatusCodes.FORBIDDEN, 'Cannot change admin status');
   }
-  if (!payload?.action) {
-    throw new AppError(StatusCodes.BAD_REQUEST, 'Invalid Action');
+
+  if (typeof payload.isActive !== 'boolean') {
+    throw new AppError(StatusCodes.BAD_REQUEST, 'Invalid isActive value');
   }
-  if (payload?.action === 'block') {
-    const res = await User.findByIdAndUpdate(payload?.id, {
-      isBlocked: true,
-    });
-    return res;
-  }
-  if (payload?.action === 'active') {
-    const res = await User.findByIdAndUpdate(payload?.id, {
-      isActive: true,
-    });
-    return res;
-  }
-  if (payload?.action === 'deactive') {
-    const res = await User.findByIdAndUpdate(payload?.id, {
-      isActive: false,
-    });
-    return res;
-  }
+
+  const updatedUser = await User.findByIdAndUpdate(
+    payload.id,
+    { isActive: payload.isActive },
+    { new: true }
+  );
+
+  return updatedUser;
 };
+
 
 const updateUserProfileInDB = async (payload: any) => {
   if (!payload?.email) {
