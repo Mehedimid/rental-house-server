@@ -4,14 +4,14 @@ import Booking from '../booking/booking.model';
 
 
 export const failedPayment = async (req: Request, res: Response) => {
-await Booking.findOneAndUpdate(
-    { transactionId: req.params.tran_id },
-    { paymentStatus: false },
-    { new: true },
-  );
+// await Booking.findOneAndUpdate(
+//     { transactionId: req.params.tran_id },
+//     { paymentStatus: false },
+//     {  paymentStatus: false },
+//   );
 
 
-  const redirectUrl = `${frontendBaseUrl}/listings/failed-payment/${req.params.tran_id}`;
+  const redirectUrl = `${frontendBaseUrl}/payment/failed/${req.params.tran_id}`;
 
   const html = `
       <html>

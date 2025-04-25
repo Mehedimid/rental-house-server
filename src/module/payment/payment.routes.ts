@@ -6,8 +6,8 @@ import { successPayment } from './payment.success';
 
 const router = express.Router();
 
-router.post('/initiate', initiatePayment);
-router.post('/success/:tran_id', successPayment);
+router.post('/initiate/:bookingId', initiatePayment);
+router.post('/success/:tran_id/:bookingId', successPayment);
 router.post('/failed/:tran_id', failedPayment);
 router.post('/cancel/:tran_id', cancelPayment);
 
