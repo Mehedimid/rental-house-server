@@ -7,10 +7,10 @@ export type statusType = 'available' | 'not available';
 
 export interface IListingImages {
   img1: string;
-  img2: string;
-  img3: string;
-  img4: string;
-  img5: string;
+  img2?: string;
+  img3?: string;
+  img4?: string;
+  img5?: string;
 }
 
 export interface IListingDetails {

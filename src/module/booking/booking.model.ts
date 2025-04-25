@@ -3,11 +3,11 @@ import { IBooking, IDetails } from "./booking.interface";
 
 const detailsSchema = new Schema<IDetails>({
   familyMembers: {
-    type: Number,
+    type: String,
     required: true
   },
   children: {
-    type: Number,
+    type: String,
     required: true
   },
   message: {

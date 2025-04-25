@@ -2,7 +2,7 @@
 import mongoose, { Schema, model, Model } from 'mongoose';
 import bcrypt from 'bcrypt';
 import config from '../../config';
-import { TCreateUser, UserModelStatics } from './user.interface';
+import { TCreateUser, UserModelStatics } from '../user/user.interface';
 
 type UserModelType = Model<TCreateUser> & UserModelStatics;
 
