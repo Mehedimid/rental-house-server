@@ -3,7 +3,7 @@ import { frontendBaseUrl } from '../../utils/baseUrl';
 import Booking from '../booking/booking.model';
 
 export const successPayment = async (req: Request, res: Response) => {
-  console.log('bookingId from success', req.params.bookingId);
+  // console.log('bookingId from success', req.params.bookingId);
   const isStatusTrue = await Booking.findByIdAndUpdate(
     req.params.bookingId,
     { paymentStatus: true },
@@ -12,7 +12,7 @@ export const successPayment = async (req: Request, res: Response) => {
 
   if (!isStatusTrue) return;
   const redirectUrl = `${frontendBaseUrl}/payment/success/${req.params.tran_id}`;
-  console.log(req.params.bookingId);
+  // console.log(req.params.bookingId);
   const html = `
       <html>
         <head>

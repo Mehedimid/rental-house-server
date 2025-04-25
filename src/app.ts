@@ -18,7 +18,6 @@ app.use(
   cors({
     origin: [
       'http://localhost:3000',
-      'http://localhost:5000',
       'https://basa-finder-server-ten.vercel.app',
       'https://basa-finder-client-rosy.vercel.app',
       'https://vercel.com/sso/access/request?next=%2Fsso-api%3Furl%3Dhttps%253A%252F%252Frental-house-client-9tugwlh2u-komolarkhoshas-projects.vercel.app%252F%26nonce%3Dc50cbd65ded005fd4a2200033858666aa98ce1734be756d821c1b4de47628671&url=rental-house-client-9tugwlh2u-komolarkhoshas-projects.vercel.app',
