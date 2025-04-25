@@ -1,17 +1,17 @@
 import { Router } from "express";
-import { AuthController } from "./auth.controller";
+import { AuthController } from "../auth/auth.controller";
 import validateRequest from "../../middlewares/validateRequest";
-import { AuthValidation } from "./auth.validation";
+import { AuthValidation } from "../auth/auth.validation";
 
 const AuthRouter = Router();
 
 AuthRouter.post('/register',
   validateRequest(AuthValidation.RegisterValidationSchema),
-  AuthController.createUser,);
+  AuthController.createUser);
 
 
 AuthRouter.post('/login',
   validateRequest(AuthValidation.loginValidationSchema),
-  AuthController.login,);
+  AuthController.login);
 
 export default AuthRouter

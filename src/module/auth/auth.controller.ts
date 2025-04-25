@@ -1,6 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 import catchAsync from "../../utils/catchAsync";
-import { AuthServices } from "./auth.service";
+import { AuthServices } from "../auth/auth.service";
 import { Request, Response } from "express";
 import sendResponse from "../../utils/sendResponse";
 import config from "../../config";

@@ -5,11 +5,11 @@ import { number } from 'zod';
 
 export const ListingImagesSchema = new Schema(
   {
-    img1: { type: String, required: true },
-    img2: { type: String, required: true },
-    img3: { type: String, required: true },
-    img4: { type: String, required: true },
-    img5: { type: String, required: true },
+    img1: { type: String, required:true},
+    img2: { type: String},
+    img3: { type: String},
+    img4: { type: String},
+    img5: { type: String},
   },
   { _id: false },
 );

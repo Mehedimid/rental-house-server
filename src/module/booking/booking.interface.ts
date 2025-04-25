@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
 export interface IDetails {
-    familyMembers:number,
-    children:number
+    familyMembers:string,
+    children:string
     message?:string
 }
 

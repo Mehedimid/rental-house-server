@@ -1,7 +1,12 @@
 import mongoose from 'mongoose';
 import { Listing } from './listing.model';
 
+
 const createListing = async (payload: any) => {
+  if (typeof payload.landlord === 'string') {
+    payload.landlord = new mongoose.Types.ObjectId(payload.landlord);
+  }
+
   const newListing = await Listing.create(payload);
   return newListing;
 };
@@ -12,6 +17,26 @@ const getSingleListing = async (listingId: string) => {
     'name email phone',
   );
   return listing;
+};
+
+const getLandlordListing = async (landlordId: string) => {
+  const objectId = new mongoose.Types.ObjectId(landlordId);
+  if (!mongoose.Types.ObjectId.isValid(landlordId)) {
+    throw new Error('Invalid landlord ID');
+  }
+  const toStrLandlordId = objectId.toString()
+  const listings = await Listing.find()
+  // console.log(listings);
+  const landlords = listings.filter(item => 
+    item?.landlord?.toString() === objectId.toString()
+  );
+  // console.log(landlords);
+  
+  const listing = await Listing.find({landlord:toStrLandlordId}).lean().populate(
+    'landlord',
+    'name email phone',
+  );
+  return listing
 };
 
 const getAllListing = async (query: Record<string, unknown>) => {
@@ -26,18 +51,24 @@ const getAllListing = async (query: Record<string, unknown>) => {
     'fields',
     'minPrice',
     'maxPrice',
+    'beds',
+    'rooms',
+    'baths'
   ];
   excludeFields.forEach((key) => delete queryObj[key]);
 
-  const searchTerm = query.searchTerm || ' ';
+  // Search term
+  const searchTerm = query.searchTerm || '';
   const searchFields = ['title', 'type', 'address'];
+  const searchConditions = searchTerm
+    ? {
+        $or: searchFields.map((field) => ({
+          [field]: { $regex: searchTerm, $options: 'i' },
+        })),
+      }
+    : {};
 
-  const searchConditions = {
-    $or: searchFields.map((field) => ({
-      [field]: { $regex: searchTerm, $options: 'i' },
-    })),
-  };
-
+  // Price filtering
   const priceFilter: Record<string, any> = {};
   if (query.minPrice) {
     priceFilter.$gte = Number(query.minPrice);
@@ -49,35 +80,52 @@ const getAllListing = async (query: Record<string, unknown>) => {
     queryObj.price = priceFilter;
   }
 
-  const searchQuery = Listing.find({
+  if (query.beds) queryObj.beds = Number(query.beds);
+  if (query.baths) queryObj.baths = Number(query.baths);
+  if (query.type) queryObj.type = query.type;
+
+  const baseQuery = Listing.find({
     ...searchConditions,
+    ...queryObj,
   }).populate('landlord');
 
-  const filterQuery = searchQuery.find(queryObj);
+  // 🔢 Total count before pagination
+  const total = await Listing.countDocuments({
+    ...searchConditions,
+    ...queryObj,
+  });
 
   const page = Number(query?.page || 1);
-  const limit = Number(query?.limit);
+  const limit = Number(query?.limit) || 10;
   const skip = (page - 1) * limit;
-  const paginatedQuery = filterQuery.skip(skip).limit(limit);
 
+  // Sorting
   let sortStr;
-
   if (query?.sortBy && query.sortOrder) {
     const sortBy = query.sortBy;
     const sortOrder = query.sortOrder;
     sortStr = `${sortOrder === 'desc' ? '-' : ''}${sortBy}`;
   }
 
-  const sortQuery = paginatedQuery.sort(sortStr);
-
-  let fields = '-__v';
-  if (query?.fields) {
-    fields = (query?.fields as string).split(',').join(' ');
+  let queryExec = baseQuery.skip(skip).limit(limit);
+  if (sortStr) {
+    queryExec = queryExec.sort(sortStr);
   }
 
-  const result = await sortQuery.select(fields);
+  const fields = query?.fields
+    ? (query.fields as string).split(',').join(' ')
+    : '-__v';
 
-  return result;
+  const listings = await queryExec.select(fields);
+
+  // ✅ Return paginated results and metadata
+  return {
+    data: listings,
+    total,
+    page,
+    limit,
+    totalPages: Math.ceil(total / limit),
+  };
 };
 
 const updateListing = async (listingId: string, payload: any) => {
@@ -101,4 +149,5 @@ export const listingServices = {
   getSingleListing,
   updateListing,
   deleteListing,
+  getLandlordListing
 };

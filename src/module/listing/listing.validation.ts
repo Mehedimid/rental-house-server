@@ -3,10 +3,10 @@ import { z } from 'zod';
 // Schema for listing images
 const listingImagesSchema = z.object({
   img1: z.string().url(),
-  img2: z.string().url(),
-  img3: z.string().url(),
-  img4: z.string().url(),
-  img5: z.string().url(),
+  img2: z.string().url().optional(),
+  img3: z.string().url().optional(),
+  img4: z.string().url().optional(),
+  img5: z.string().url().optional(),
 });
 
 // Schema for listing details (like description, rooms, etc.)

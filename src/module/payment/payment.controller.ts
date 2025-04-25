@@ -16,7 +16,6 @@ type InitiatePaymentResponse = z.infer<typeof initiatePaymentResponseSchema>;
 export const initiatePayment = async (req: Request, res: Response) => {
   const bookingData = req.body;
   const bookingHouse = await Listing.findById(bookingData.listing);
-
   const tenant = await User.findById(bookingData.tenant)
 
   const name = tenant?.name || "name"
