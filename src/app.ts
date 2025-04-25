@@ -16,7 +16,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'http://localhost:5000', 'https://basa-finder-server-ten.vercel.app/api', 'https://rental-house-client-9tugwlh2u-komolarkhoshas-projects.vercel.app'],
+    origin: ['http://localhost:3000', 'http://localhost:5000', 'https://basa-finder-server-ten.vercel.app', 'https://rental-house-client.vercel.app', 'https://rental-house-server-mu.vercel.app',
+],
     credentials: true,
   }),
 );
