@@ -4,14 +4,14 @@ import { Request, Response } from "express";
 import Booking from "../booking/booking.model";
 
 export const cancelPayment = async (req: Request, res: Response) => {
-await Booking.findOneAndUpdate(
-    { transactionId: req.params.tran_id },
-    { paymentStatus: false },
-    { new: true },
-  );
+// await Booking.findOneAndUpdate(
+//     { transactionId: req.params.tran_id },
+//     { paymentStatus: false },
+//     { new: true },
+//   );
 
 
-  const redirectUrl = `${frontendBaseUrl}/listings/cancel-payment/${req.params.tran_id}`;
+  const redirectUrl = `${frontendBaseUrl}/payment/cancel/${req.params.tran_id}`;
   
   const html = `
     <html>
