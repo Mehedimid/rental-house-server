@@ -26,11 +26,11 @@ const getLandlordListing = async (landlordId: string) => {
   }
   const toStrLandlordId = objectId.toString()
   const listings = await Listing.find()
-  // console.log(listings);
+
   const landlords = listings.filter(item => 
     item?.landlord?.toString() === objectId.toString()
   );
-  // console.log(landlords);
+
   
   const listing = await Listing.find({landlord:toStrLandlordId}).lean().populate(
     'landlord',

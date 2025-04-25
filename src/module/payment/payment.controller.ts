@@ -19,7 +19,7 @@ export const initiatePayment = async (req: Request, res: Response) => {
   const bookingHouse = await Listing.findById(bookingData.listing);
   const tenant = await User.findById(bookingData.tenant);
   const bookingId = req.params.bookingId
-  console.log("bookingId:", bookingId);
+
 
   const name = tenant?.name || 'name';
   const email = tenant?.email || 'email';
