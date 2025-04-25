@@ -1,11 +1,25 @@
 import mongoose from 'mongoose';
 import { IBooking } from './booking.interface';
 import Booking from './booking.model';
+import { User } from '../user/user.model';
+import { sendEmail } from '../../utils/mailer';
 
 const createBooking = async (payload: IBooking): Promise<IBooking> => {
+  const landlord = await User.findById(payload.landlord);
   const result = await Booking.create(payload);
+
+  if (landlord?.email) {
+    await sendEmail(
+      landlord.email,
+      'New Booking Request on BasaFinder',
+      `<p>Hello ${landlord.name},</p>
+       <p>You’ve received a new booking request for your listing.</p>`
+    );
+  }
+
   return result;
 };
+
 
 const cancelBooking = async (bookingId: string): Promise<IBooking> => {
   const session = await mongoose.startSession();

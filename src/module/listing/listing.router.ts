@@ -5,6 +5,8 @@ import { listingControllers } from './listing.controller';
 
 const listingRouter = express.Router();
 
+listingRouter.get('/landlord/:landlordId', listingControllers.getLandlordListing);
+
 // Create a new rental house listing
 listingRouter.post(
   '/create-listing',

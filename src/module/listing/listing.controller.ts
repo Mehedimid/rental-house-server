@@ -23,6 +23,17 @@ const getSingleListing = catchAsync(
     });
   },
 );
+const getLandlordListing = catchAsync(
+  async (req: Request, res: Response) => {
+    const listingId = req.params.landlordId;
+    const listing = await listingServices.getLandlordListing(listingId);
+    sendResponse(res, {
+      statusCode: 200,
+      message: 'Landlord Listing fetched successfully',
+      data: listing,
+    });
+  },
+);
 
 const getAllListing = catchAsync(async (req: Request, res: Response) => {
   const listings = await listingServices.getAllListing(req.query);
@@ -63,4 +74,5 @@ export const listingControllers = {
   getAllListing,
   updateListing,
   deleteListing,
+  getLandlordListing
 };
