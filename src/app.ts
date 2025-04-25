@@ -11,12 +11,12 @@ import bookingRouter from './module/booking/booking.router';
 import { paymentRoutes } from './module/payment/payment.routes';
 
 const app: Application = express();
-
+require('dotenv').config();
 app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'http://localhost:5000'],
+    origin: ['http://localhost:3000', 'http://localhost:5000', 'https://basa-finder-server-ten.vercel.app/api', 'https://rental-house-client-9tugwlh2u-komolarkhoshas-projects.vercel.app'],
     credentials: true,
   }),
 );
